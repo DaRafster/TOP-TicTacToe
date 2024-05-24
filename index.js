@@ -104,11 +104,10 @@ function createPlayer(shape, playerNum) {
 const playerOne = createPlayer("X", 1);
 const playerTwo = createPlayer("O", 2);
 
-const tiles = document.querySelectorAll(".grid > div");
-const arr = [...tiles];
+const tiles = [...document.querySelectorAll(".grid > div")];
 tiles.forEach((tile) => {
   tile.addEventListener("click", () => {
-    const idx = arr.indexOf(tile);
+    const idx = tiles.indexOf(tile);
     const row = parseInt(idx / 3);
     const col = idx % 3;
     if (gameboard.isGameOver() || gameboard.getTileContent(row, col) !== ".") {
