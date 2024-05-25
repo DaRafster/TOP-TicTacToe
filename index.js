@@ -148,6 +148,20 @@ restartButton.addEventListener("click", () => {
   });
 });
 
+const menuButton = document.querySelector(".menu-btn");
+menuButton.addEventListener("click", () => {
+  form.style.display = "block";
+  document.querySelector(".grid").style.display = "none";
+  document.querySelector(".game-status").style.display = "none";
+  restartButton.style.visibility = "none";
+  menuButton.style.visibility = "none";
+  document.querySelector(".error").style.visibility = "none";
+  gameboard.restartGame();
+  tiles.forEach((tile) => {
+    tile.innerHTML = "";
+  });
+});
+
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -164,4 +178,6 @@ form.addEventListener("submit", (event) => {
   playerOne.setPlayerName(pOneName.value);
   playerTwo.setPlayerName(pTwoName.value);
   restartButton.style.visibility = "visible";
+  menuButton.style.visibility = "visible";
+  form.reset();
 });

@@ -59,7 +59,31 @@ h1 {
     margin-top: 20px;
     visibility: hidden;
     cursor: pointer;
-    width: 300px;
+    width: 200px;
+}
+
+.menu-btn {
+    font-size: 28px;
+    padding: 10px 50px;
+    border-radius: 12px;
+    border: none;
+    font-family: "Yatra One";
+    letter-spacing: 2px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 175px;
+}
+
+.options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
 }
 
 img {
