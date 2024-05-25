@@ -70,7 +70,7 @@ const gameboard = (function () {
     tilesRemaining = 9;
 
     const gameStatus = document.querySelector(".game-status");
-    gameStatus.innerHTML = "Player 1's Turn";
+    gameStatus.innerHTML = `${playerOne.getPlayerName()}'s Turn`;
   };
 
   return {
@@ -86,9 +86,10 @@ const gameboard = (function () {
   };
 })();
 
-function createPlayer(shape, playerNum) {
+function createPlayer(shape, playerNum, name) {
   this.shape = shape;
   this.playerNum = playerNum;
+  this.name = name;
 
   const getShape = () => {
     return shape;
@@ -98,11 +99,19 @@ function createPlayer(shape, playerNum) {
     return playerNum;
   };
 
-  return { getShape, getPlayerNum };
+  const getPlayerName = () => {
+    return name;
+  };
+
+  const setPlayerName = (pName) => {
+    name = pName;
+  };
+
+  return { getShape, getPlayerNum, getPlayerName, setPlayerName };
 }
 
-const playerOne = createPlayer("X", 1);
-const playerTwo = createPlayer("O", 2);
+const playerOne = createPlayer("X", 1, "Player One");
+const playerTwo = createPlayer("O", 2, "Player Two");
 
 const tiles = [...document.querySelectorAll(".grid > div")];
 tiles.forEach((tile) => {
@@ -114,31 +123,45 @@ tiles.forEach((tile) => {
       return;
     }
 
+    gameboard.setPlayerOneTurn(!gameboard.isPlayerOneTurn());
     const player = gameboard.isPlayerOneTurn() ? playerOne : playerTwo;
     const gameStatus = document.querySelector(".game-status");
     tile.innerHTML = player.getShape();
-    gameboard.setPlayerOneTurn(!gameboard.isPlayerOneTurn());
-    gameStatus.innerHTML = `Player ${player.getPlayerNum()}'s Turn`;
+    gameStatus.innerHTML = `${player.getPlayerName()}'s Turn`;
     gameboard.updateBoard(row, col, player);
 
     if (gameboard.checkWin(row, col, player)) {
-      gameStatus.innerHTML =
-        "Game Over! Player " + player.getPlayerNum() + " wins!";
+      gameStatus.innerHTML = "Game Over! " + player.getPlayerName() + " wins!";
       gameboard.setGameOver(true);
-      restartButton.style.visibility = "visible";
     } else if (gameboard.getTilesRemaining() == 0) {
       gameStatus.innerHTML = "Game Over! It's a tie!";
       gameboard.setGameOver(true);
-      restartButton.style.visibility = "visible";
     }
   });
 });
 
-const restartButton = document.querySelector("button");
+const restartButton = document.querySelector(".restart-game-btn");
 restartButton.addEventListener("click", () => {
   gameboard.restartGame();
   tiles.forEach((tile) => {
     tile.innerHTML = "";
   });
-  restartButton.style.visibility = "hidden";
+});
+
+const form = document.querySelector("form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const [pOneName, pTwoName] = document.querySelectorAll("form input");
+  if (pOneName.value === pTwoName.value) {
+    document.querySelector(".error").style.visibility = "visible";
+    return;
+  }
+  document.querySelector(".grid").style.display = "grid";
+  document.querySelector(".game-status").style.display = "block";
+  document.querySelector(".game-status").innerHTML = `${pOneName.value}'s Turn`;
+  form.style.display = "none";
+  playerOne.setPlayerName(pOneName.value);
+  playerTwo.setPlayerName(pTwoName.value);
+  restartButton.style.visibility = "visible";
 });

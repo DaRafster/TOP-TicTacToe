@@ -9,6 +9,20 @@
   <body>
     <h1>Tic - Tac - Toe</h1>
 
+    <form action="" onkeydown="return event.key != 'Enter';">
+      <h2>Enter player names:</h2>
+      <div class="playerOneContainer">
+        <label for="playerOneName">Player 1: </label>
+        <input type="text" name="playerOneName" id="playerOneName" required />
+      </div>
+      <div>
+        <label for="playerTwoName">Player 2: </label>
+        <input type="text" name="playerTwoName" id="playerTwoName" required />
+      </div>
+      <p class="error">Please enter different names!</p>
+      <button class="start-game-btn">Start Game</button>
+    </form>
+
     <p class="game-status">Player 1's Turn</p>
     <div class="grid">
       <div></div>
@@ -21,7 +35,9 @@
       <div></div>
       <div></div>
     </div>
-    <button>Restart <img src="restart.svg" alt="" /></button>
+    <button class="restart-game-btn">
+      Restart <img src="restart.svg" alt="" />
+    </button>
     <script src="index.js"></script>
   </body>
 </html>
