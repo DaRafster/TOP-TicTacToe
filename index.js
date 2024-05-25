@@ -153,10 +153,11 @@ menuButton.addEventListener("click", () => {
   form.style.display = "block";
   document.querySelector(".grid").style.display = "none";
   document.querySelector(".game-status").style.display = "none";
-  restartButton.style.visibility = "none";
-  menuButton.style.visibility = "none";
-  document.querySelector(".error").style.visibility = "none";
   gameboard.restartGame();
+  restartButton.style.visibility = "hidden";
+  menuButton.style.visibility = "hidden";
+  document.querySelector(".error").style.visibility = "hidden";
+
   tiles.forEach((tile) => {
     tile.innerHTML = "";
   });
