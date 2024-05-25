@@ -59,6 +59,7 @@ h1 {
     margin-top: 20px;
     visibility: hidden;
     cursor: pointer;
+    width: 300px;
 }
 
 img {
